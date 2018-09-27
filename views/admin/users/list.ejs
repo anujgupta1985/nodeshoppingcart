@@ -1,0 +1,78 @@
+<% include ../common/header %>
+<% include ../common/left %>
+    <!-- Main content -->
+        <section class="content">
+
+
+           
+          <div class="row">
+            <div class="col-xs-12">               
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"><%= __("Users") %></h3>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <% if ( expressFlash.error.length > 0 ) { %>
+
+                      <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <%= expressFlash.error %>
+                      </div>
+                
+                    <% } %>
+    
+                    <% if ( expressFlash.success.length > 0 ) { %>
+    
+                      <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <%= expressFlash.success %>
+                      </div>
+                
+                  <% } %>
+
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Added Date</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% allUsers.forEach((user) => { %>
+                        <tr>
+                           <td><%= user._id %></td>
+                           <td><%= user.first_name + " " + user.last_name %></td>
+                           <td><%= user.email %></td>
+                           <td><%= new Date(user.added_date).toLocaleString() %></td>
+                           <td><a href="<%= adminUrl %>users/<%= user._id %>"><%= __("Edit") %></a> | <a href="javascript:void(0);" onclick="if (confirm('Are you sure?')) { location.href = '<%= adminUrl %>users/delete/<%= user._id %>' }"><%= __("Delete") %></a></td>
+                        </tr>
+
+                   <% }); %>
+                  
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Added Date</th>
+                            <th>Actions</th>
+                    </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </section>
+    <!-- /.content -->
+<% include ../common/footer %>
