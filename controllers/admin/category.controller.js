@@ -22,11 +22,18 @@ exports.create = (req, res) => {
 exports.save = (req, res) => {
 
     let parent_cat = req.body.parent_category;
+   
+    var catName = req.body.category_name;
+    var catslug = catName.replace(" ", "-");
+
+    var parentName = "/";
+    var slug = parentName  + catslug;
 
     var data = { 
-                name : req.body.category_name,
+                name : catName,
                 description : req.body.description,
-                subcategory : [{}],
+                parent : parentName,
+                slug : slug,
                 added_date : new Date,
                 last_update : new Date
             }

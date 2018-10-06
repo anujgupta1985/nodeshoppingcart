@@ -6,7 +6,8 @@ let Schema = mongoose.Schema;
 var Category = new Schema({
     name : String,
     description : {type : String},
-    subcategory : [],
+    parent : {type: String},
+    slug : {type: String},
     status : {type: String, enum: ['enable', 'disable'], default : 'enable'},
     added_date : Date,
     last_update: Date

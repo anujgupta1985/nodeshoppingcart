@@ -21,7 +21,7 @@
                     <select class="form-control"  name="parent_category" id="parent_category">
                         <option value=""><%= ("Parent") %></option>
                         <% categories.forEach((categry) => { %>
-                            <option value="<%= categry._id %>"><%= categry.name %></option>    
+                            <option value="<%= categry.slug %>"><%= categry.name %></option>    
                        <% }); %>
                     </select>
                 </div>
