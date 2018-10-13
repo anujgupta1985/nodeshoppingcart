@@ -22,13 +22,20 @@ exports.create = (req, res) => {
 exports.save = (req, res) => {
 
     let parent_cat = req.body.parent_category;
-   
     var catName = req.body.category_name;
     var catslug = catName.replace(" ", "-");
 
-    var parentName = "/";
-    var slug = parentName  + catslug;
+    var parentName = "";
+    var slug = "";
 
+    if(parent_cat == "") {
+        parentName = "/";
+        slug = parentName  + catslug;
+    } else {
+        parentName = parent_cat;
+        slug = parentName + "/" + catslug;
+    }
+         
     var data = { 
                 name : catName,
                 description : req.body.description,
@@ -36,8 +43,8 @@ exports.save = (req, res) => {
                 slug : slug,
                 added_date : new Date,
                 last_update : new Date
-            }
-    
+            };
+
     Category.create(data).then((result) => {
         console.log(result);
         res.redirect(adminUrl + "categories");
