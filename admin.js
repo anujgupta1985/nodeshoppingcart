@@ -40,5 +40,7 @@ router.get("/categories/add", ctrlCategory.create);
 router.post("/categories/add", ctrlCategory.save);
 router.get("/categories", ctrlCategory.list);
 router.get("/categories/:cat_id", ctrlCategory.editForm);
+router.get("/categories/delete/:cat_id", ctrlCategory.delete);
+router.get("/getsubcategory", ctrlCategory.getSubcategory);
 
 module.exports = router;

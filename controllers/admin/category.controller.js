@@ -12,8 +12,10 @@ exports.list = (req, res) => {
 exports.create = (req, res) => {
 
     Category.getCategories('enable').then((result) => {
-       // console.log(result);
-        res.render(adminPath + "category/add", {categories : result});
+       // console.log(result); return;
+        var catJs = ["category.js"];
+        //console.log(catJs);
+        res.render(adminPath + "category/add", {categories : result, pageJS : catJs});
     }).catch((error) => {
         console.log("Error in getting category!");
     });
@@ -46,7 +48,8 @@ exports.save = (req, res) => {
             };
 
     Category.create(data).then((result) => {
-        console.log(result);
+        //console.log(result);
+        req.flash('success', 'Category added successfully.');
         res.redirect(adminUrl + "categories");
     }).catch((error) => {
         console.log(error);
@@ -56,9 +59,9 @@ exports.save = (req, res) => {
 exports.editForm = (req, res) => {
     Category.getCategories("enable").then((result) => {
         let categ_id = req.params.cat_id;
-        console.log(categ_id);
+        //console.log(categ_id);
         Category.getCategory(categ_id).then((resData) => {
-            console.log(resData);
+            //console.log(resData);
             res.render(adminPath + "category/edit", {categories : result,catData : resData,category_id : categ_id});
         }).catch((error) => {
             console.log("Error in getting category detail!");
@@ -66,4 +69,19 @@ exports.editForm = (req, res) => {
     }).catch((err) => {
         console.log("Error in getting categories!");
     });
+}
+
+exports.delete = (req, res) => {
+    Category.deleteCat(req.params.cat_id).then((result) => {
+        if(result) {
+            req.flash('success', 'Category deleted successfully.');
+            res.redirect(adminUrl + "categories");
+        }
+    }).catch((err) => {
+        console.log("Error in deleting category!");
+    });
+}
+
+exports.getSubcategory = (req, res) => {
+    return true;
 }

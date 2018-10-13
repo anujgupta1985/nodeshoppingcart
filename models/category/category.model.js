@@ -22,9 +22,10 @@ function getCategories(status=false)
 {
     let srchQry = {};
 
-    if(status)
-    {
-        srchQry = {status : status };
+    if(status) {
+        srchQry =  { status : status, parent: { $regex : /^\/$/ } };
+    } else {
+        srchQry =  { parent: { $regex : /^\/$/ } };
     }
 
     return new Promise((resolve, reject) => {
@@ -50,8 +51,21 @@ function getCategory(cat_id) {
     });
 }
 
+function deleteCat(cat_id) {
+    return new Promise((resolve, reject) => {
+        catModel.remove({_id : cat_id}, (error, result)=> {
+            if(error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 module.exports = {
     create : create,
     getCategories : getCategories,
-    getCategory : getCategory
+    getCategory : getCategory,
+    deleteCat : deleteCat
 }
