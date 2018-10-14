@@ -1,6 +1,9 @@
 const express = require("express");
 //const app = express();
 
+const bodyParser = require("body-parser");
+var jsonParser = bodyParser.json();
+
 const router = express.Router();
 
 let ctrlLogin = require("./controllers/admin/login.controller");
@@ -36,11 +39,11 @@ router.get("/users/delete/:user_id", checkIsLogedIn, ctrlUsers.delete);
 
 let ctrlCategory = require("./controllers/admin/category.controller");
 
-router.get("/categories/add", ctrlCategory.create);
-router.post("/categories/add", ctrlCategory.save);
-router.get("/categories", ctrlCategory.list);
-router.get("/categories/:cat_id", ctrlCategory.editForm);
-router.get("/categories/delete/:cat_id", ctrlCategory.delete);
-router.get("/getsubcategory", ctrlCategory.getSubcategory);
+router.get("/categories/add", checkIsLogedIn, ctrlCategory.create);
+router.post("/categories/add", checkIsLogedIn ,  ctrlCategory.save);
+router.get("/categories", checkIsLogedIn, ctrlCategory.list);
+router.get("/categories/:cat_id", checkIsLogedIn,  ctrlCategory.editForm);
+router.get("/categories/delete/:cat_id", checkIsLogedIn, ctrlCategory.delete);
+router.post("/getsubcategory", checkIsLogedIn , ctrlCategory.getSubcategory);
 
 module.exports = router;

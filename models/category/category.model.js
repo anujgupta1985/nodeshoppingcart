@@ -18,14 +18,17 @@ function create(data)
     });
 }
 
-function getCategories(status=false)
+function getCategories(status=false, parentct="/")
 {
     let srchQry = {};
+    let regexInpt =  new RegExp(`^${parentct}$`)
+
+    //console.log(regexInpt);
 
     if(status) {
-        srchQry =  { status : status, parent: { $regex : /^\/$/ } };
+        srchQry =  { status : status, parent: { $regex : regexInpt } };
     } else {
-        srchQry =  { parent: { $regex : /^\/$/ } };
+        srchQry =  { parent: { $regex : regexInpt } };
     }
 
     return new Promise((resolve, reject) => {

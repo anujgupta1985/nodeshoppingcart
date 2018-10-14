@@ -3,18 +3,13 @@ $(document).ready(function(){
     $("#parent_category").change(function() {
         var pcat = $(this).val();
 
-        //var parameters = { parent_cat : pcat };       
-
-        data = {};
-        data.parent_cat = pcat; 
-        console.log(data);
-
+        var parameters = { parent_cat : pcat };
 
         $.ajax({
-            type: 'GET',
-            data: JSON.stringify(data),
+            type: 'POST',
+            data: parameters,
             contentType: 'application/json',
-            url: 'http://localhost:3000/admin/getsubcategory',
+            url: '/admin/getsubcategory',
             success: function(data) {
                 console.log('success');
                // console.log(JSON.stringify(data));

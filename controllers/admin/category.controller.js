@@ -83,5 +83,21 @@ exports.delete = (req, res) => {
 }
 
 exports.getSubcategory = (req, res) => {
-    return true;
+
+    var parentSlug = req.body;
+
+    console.log(parentSlug);
+
+    Category.getCategories("enable").then((result) => {
+        let categ_id = req.params.cat_id;
+        //console.log(categ_id);
+        Category.getCategory(categ_id).then((resData) => {
+            //console.log(resData);
+           // res.render(adminPath + "category/edit", {categories : result,catData : resData,category_id : categ_id});
+        }).catch((error) => {
+            console.log("Error in getting category detail!");
+        });
+    }).catch((err) => {
+        console.log("Error in getting categories!");
+    });
 }
